@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import { HashLink } from 'react-router-hash-link';
+
+import Logo from '../../assets/Logos/Logo.png'; 
+
+export default function Navegador() {
+    const [puntos, setPuntos] = useState(120);
+
+    return (
+        <header id="Navegador">
+            <nav>
+                <div className="izquierda">
+                    <HashLink to="/" smooth>
+                        <img src={Logo} alt="Logo Level-Up Gamer" className="logo-img" />
+                    </HashLink>
+                </div>
+
+                <h1 className="logo-text">Level-Up Store !!</h1>
+
+                <div className="derecha">
+                    <HashLink to="/Nosotros" smooth>Nosotros</HashLink>
+                    <HashLink to="/Carrito" smooth>Carrito</HashLink>
+                    <HashLink to="/Inicio_Sesion" smooth>Inicio Sesion</HashLink>
+                    <p>
+                        <span className="levelup-label">Tus puntos son de </span>
+                        <span id="puntos" className="levelup-points">{puntos} Level-Up</span>
+                    </p>
+                </div>
+            </nav>
+
+            <aside id="sidebar" className="sidebar">
+                <h2>Categorías</h2>
+                <ul>
+                    <li><HashLink to="/categorias/consolas" smooth>Consolas</HashLink></li>
+                    <li><HashLink to="/categorias/juegos-mesa" smooth>Juegos de Mesa</HashLink></li>
+                    <li><HashLink to="/categorias/perifericos" smooth>Periféricos</HashLink></li>
+                    <li><HashLink to="/categorias/computadores" smooth>Computadores</HashLink></li>
+                </ul>
+            </aside>
+        </header>
+    );
+}
