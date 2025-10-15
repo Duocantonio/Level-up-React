@@ -31,10 +31,11 @@ export default function Navegador() {
             <aside id="sidebar" className="sidebar">
                 <h2>Categorías</h2>
                 <ul>
-                    <li><HashLink to="/categorias/consolas" smooth>Consolas</HashLink></li>
-                    <li><HashLink to="/categorias/juegos-mesa" smooth>Juegos de Mesa</HashLink></li>
-                    <li><HashLink to="/categorias/perifericos" smooth>Periféricos</HashLink></li>
-                    <li><HashLink to="/categorias/computadores" smooth>Computadores</HashLink></li>
+                    <li><HashLink to="/Consolas" smooth>Consolas</HashLink></li>
+                    <li><HashLink to="/Juegos_Mesa" smooth>Juegos de Mesa</HashLink></li>
+                    <li><HashLink to="/Perifericos" smooth>Periféricos</HashLink></li>
+                    <li><HashLink to="/Computadores" smooth>Computadores</HashLink></li>
+
                 </ul>
             </aside>
         </header>
