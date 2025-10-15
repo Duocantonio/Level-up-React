@@ -18,7 +18,7 @@ export default function Home({ agregarAlCarrito }) {
             imagen={Xbox_Series_X}
             titulo="Xbox Series X"
             descripcion="La consola más potente de Xbox hasta la fecha, con un rendimiento excepcional."
-            precio="$499.99"
+            precio="$499999"
             agregarAlCarrito={agregarAlCarrito} 
           />
 
@@ -26,15 +26,15 @@ export default function Home({ agregarAlCarrito }) {
             imagen={Nvidia5090} 
             titulo="Nvidia RTX 5090"
             descripcion="La tarjeta gráfica más potente de Nvidia, diseñada para gamers y creadores."
-            precio="$1,499.99"
+            precio="$1500000"
             agregarAlCarrito={agregarAlCarrito} 
           />
 
           <Producto
-            imagen={PS5} // Usamos la variable importada
+            imagen={PS5}
             titulo="PlayStation 5"
             descripcion="La consola de última generación de Sony, con un rendimiento impresionante."
-            precio="$499.99"
+            precio="$499999"
             agregarAlCarrito={agregarAlCarrito} 
           />
         </section>

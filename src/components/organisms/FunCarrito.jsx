@@ -1,37 +1,26 @@
-// FunCarrito.jsx
-
+// FunCarritoSimple.jsx
 import React, { useState, useEffect } from 'react';
 
-const getCarritoFromStorage = () => {
-  const guardado = localStorage.getItem('carrito');
-  if (!guardado) return [];
-  try {
-    return JSON.parse(guardado).map(p => ({ ...p, precio: Number(p.precio) }));
-  } catch {
-    return [];
-  }
-};
-
-export default function FunCarrito() {
-  const [productos, setProductos] = useState(getCarritoFromStorage);
+export default function FunCarritoSimple() {
+  const [productos, setProductos] = useState(() => {
+    const guardado = localStorage.getItem('carrito');
+    return guardado ? JSON.parse(guardado) : [];
+  });
 
   const esDuoc = true;
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      console.log('Storage event detected! Updating cart.');
-      setProductos(getCarritoFromStorage());
+    localStorage.setItem('carrito', JSON.stringify(productos));
+    
+    const sincronizarCarrito = () => {
+        const guardado = localStorage.getItem('carrito');
+        setProductos(guardado ? JSON.parse(guardado) : []);
     };
-
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', sincronizarCarrito);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('storage', sincronizarCarrito);
     };
-  }, []); 
-
-  useEffect(() => {
-    localStorage.setItem('carrito', JSON.stringify(productos));
   }, [productos]);
 
   const eliminarDelCarrito = (indexAEliminar) => {
@@ -39,29 +28,38 @@ export default function FunCarrito() {
     setProductos(nuevosProductos);
   };
 
-  const precioTotal = productos.reduce((sum, item) => sum + item.precio, 0);
-  const descuento = esDuoc ? precioTotal * 0.2 : 0;
-  const precioConDescuento = precioTotal - descuento;
+  const precioTotal = productos.reduce((total, producto) => total + (Number(producto.precio) || 0), 0);
+  const descuento = esDuoc ? precioTotal * 0.20 : 0;
+  const precioFinal = precioTotal - descuento;
 
   return (
     <div className="carrito-container">
       <h1>Carrito de Compras</h1>
-      <div id="carritoProductos">
-        {productos.length === 0 ? (
-          <p>El carrito está vacío.</p>
-        ) : (
-          productos.map((producto, index) => (
-            <div key={index} className="carrito-item">
-              <img src={producto.imagen} alt={producto.nombre} width="60" />
-              <span>{producto.nombre}</span> - <span>${producto.precio.toFixed(2)}</span>
-              <button onClick={() => eliminarDelCarrito(index)} className="boton-eliminar">
-                Eliminar
-              </button>
-            </div>
-          ))
-        )}
-      </div>
 
+      {productos.length === 0 && <p>El carrito está vacío.</p>}
+
+      {productos.map((producto, index) => (
+        <div key={index} className="carrito-item">
+          
+          {producto.imagen && (
+            <img 
+              src={producto.imagen} 
+              alt={producto.nombre} 
+              width="60"
+              style={{ marginRight: '15px', borderRadius: '4px' }}
+            />
+          )}
+          
+          <div className="info-producto">
+            <span>{producto.nombre}</span> - <span>${(Number(producto.precio) || 0).toFixed(2)}</span>
+          </div>
+
+          <button onClick={() => eliminarDelCarrito(index)} className="boton-eliminar">
+            Eliminar
+          </button>
+        </div>
+      ))}
+      
       {productos.length > 0 && (
         <div className="carrito-total">
           <hr />
@@ -69,7 +67,7 @@ export default function FunCarrito() {
           {esDuoc && (
             <>
               <div>Descuento DUOC (20%): -${descuento.toFixed(2)}</div>
-              <div><strong>Total con descuento: ${precioConDescuento.toFixed(2)}</strong></div>
+              <div><strong>Total con descuento: ${precioFinal.toFixed(2)}</strong></div>
             </>
           )}
         </div>

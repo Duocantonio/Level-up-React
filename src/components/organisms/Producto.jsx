@@ -1,3 +1,4 @@
+// Producto.jsx
 import React from 'react';
 
 export default function Producto({ imagen, titulo, descripcion, precio }) {
@@ -13,8 +14,6 @@ export default function Producto({ imagen, titulo, descripcion, precio }) {
     carritoActual.push(nuevoProducto);
     localStorage.setItem('carrito', JSON.stringify(carritoActual));
 
-
-    window.dispatchEvent(new Event('storage'));
     alert(`${titulo} se ha añadido al carrito 🛒`);
   };
 
