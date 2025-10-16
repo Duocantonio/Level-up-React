@@ -20,7 +20,7 @@ export default function Navegador() {
                 <div className="derecha">
                     <HashLink to="/Nosotros" smooth>Nosotros</HashLink>
                     <HashLink to="/Carrito" smooth>Carrito</HashLink>
-                    <HashLink to="/Inicio_Sesion" smooth>Inicio Sesion</HashLink>
+                    <HashLink to="/Crear_Cuenta" smooth>Crear Cuenta</HashLink>
                     <p>
                         <span className="levelup-label">Tus puntos son de </span>
                         <span id="puntos" className="levelup-points">{puntos} Level-Up</span>
