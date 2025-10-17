@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-// Importamos los componentes clave de React-Bootstrap
 import { Form, Button, Container, Alert } from 'react-bootstrap'; 
 
 export default function Crear_Cuenta() {
-  const navigate = useNavigate();
-
   const [nombre, setNombre] = useState("");
   const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +12,6 @@ export default function Crear_Cuenta() {
 
   const manejarEmail = (email) => {
     setEmail(email);
-    // Lógica para aplicar descuento si el email es de DuocUC
     if (email.includes("@duocuc.cl")) {
       setDescuento("Obtienes un 20% de descuento por ser de DuocUC 🎓");
     } else {
@@ -26,32 +21,26 @@ export default function Crear_Cuenta() {
 
   const validarFormulario = (validacion) => {
     validacion.preventDefault();
-    setErrores(""); // Limpiamos errores al inicio de la validación
+    setErrores(""); 
 
-    // Validación: Nombre mínimo 3 letras
     if (nombre.length < 3) {
       setErrores("Ingrese mínimo 3 letras.");
       return;
     }
-    // Validación: Mayor de edad
     if (edad < 18) {
       setErrores("Debes ser mayor de edad.");
       return;
     }
-    // Validación: Dominio de correo permitido
     if (!email.includes("@gmail.com") && !email.includes("@duocuc.cl")) {
       setErrores("Añade un correo válido (@gmail.com o @duocuc.cl).");
       return;
     }
-    // Validación: Claves deben coincidir
     if (clave1 !== clave2 || clave2 === "") {
       setErrores("Las claves no coinciden.");
       return;
     }
 
-    // Si todas las validaciones pasan
     alert("Felicitaciones, te has registrado con éxito! 🎉");
-    // Redirección usando react-router-dom
     navigate("/");
   };
 
