@@ -5,9 +5,9 @@ import Nvidia5090 from '../../assets/Logos/Nvidia5090.png';
 import PS5 from '../../assets/Logos/PS5.png';
 
 import Navegador from '../organisms/Navegador';
-import Producto from '../organisms/Producto'; 
+import Producto from '../organisms/Producto';
 
-export default function Home() {
+export default function Home({ agregarAlCarrito }) {
   return (
     <>
       <Navegador />
@@ -34,8 +34,6 @@ export default function Home() {
             descripcion="La consola de última generación de Sony, con un rendimiento impresionante."
             precio="$499.990"
           />
-          
-
         </section>
 
         <section id="reviewofproduct"></section>
