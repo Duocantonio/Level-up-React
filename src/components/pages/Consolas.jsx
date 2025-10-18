@@ -5,6 +5,7 @@ import PS5 from '../../assets/Logos/PS5.png';
 import Nintendo_Switch from '../../assets/Logos/Nintendo_Switch.jpg';
 import Steam_Deck from '../../assets/Logos/Steam_Deck.jpg';
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import Footer from "../organisms/Footer";
 
 
 const consolas = [
@@ -65,6 +66,7 @@ export default function Consolas() {
           ))}
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

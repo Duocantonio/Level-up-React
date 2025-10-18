@@ -6,6 +6,7 @@ import PS5 from '../../assets/Logos/PS5.png';
 
 import Navegador from '../organisms/Navegador';
 import Producto from '../organisms/Producto';
+import Footer from '../organisms/Footer';
 
 export default function Home({ agregarAlCarrito }) {
   return (
@@ -38,6 +39,7 @@ export default function Home({ agregarAlCarrito }) {
 
         <section id="reviewofproduct"></section>
       </main>
+      <Footer />
     </>
   );
 }

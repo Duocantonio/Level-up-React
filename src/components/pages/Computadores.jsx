@@ -5,6 +5,8 @@ import PC_Gamer_1 from '../../assets/Logos/PC_Gamer_1.jpg';
 import PC_Gamer_2 from '../../assets/Logos/PC_Gamer_2.webp';
 import Laptop_Gamer from '../../assets/Logos/Laptop_Gamer.webp';
 import PC_Streaming from '../../assets/Logos/PC_Streaming.webp';
+import Footer from "../organisms/Footer";
+
 
 const computadores = [
   {
@@ -64,6 +66,7 @@ export default function Computadores() {
           ))}
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }
