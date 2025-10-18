@@ -45,17 +45,13 @@ export default function Crear_Cuenta() {
   };
 
   return (
-    // Container: Componente de Bootstrap que ayuda con el centrado y el margen
     <Container className="my-5 p-4 border rounded shadow" style={{ maxWidth: '450px' }}>
       <h2 className="text-center mb-4">Crear Cuenta</h2>
       
-      {/* Form: Componente que maneja el envío */}
       <Form onSubmit={validarFormulario}>
         
-        {/* Alert: Muestra errores generales de validación si existen */}
         {errores && <Alert variant="danger" className="text-center">{errores}</Alert>}
 
-        {/* Campo Nombre */}
         <Form.Group className="mb-3" controlId="formNombre">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -63,7 +59,6 @@ export default function Crear_Cuenta() {
             placeholder="Ingresa tu nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            // isInvalid activa los estilos de error de Bootstrap
             isInvalid={nombre && nombre.length < 3} 
           />
           <Form.Control.Feedback type="invalid">

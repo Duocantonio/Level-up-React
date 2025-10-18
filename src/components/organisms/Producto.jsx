@@ -1,5 +1,5 @@
-// Producto.jsx
 import React from 'react';
+
 
 export default function Producto({ imagen, titulo, descripcion, precio }) {
   
