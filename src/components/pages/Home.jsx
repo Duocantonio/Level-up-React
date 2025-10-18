@@ -1,11 +1,12 @@
 import React from 'react';
-
 import Xbox_Series_X from '../../assets/Logos/Xbox_Series_X.png';
 import Nvidia5090 from '../../assets/Logos/Nvidia5090.png'; 
 import PS5 from '../../assets/Logos/PS5.png';
-
 import Navegador from '../organisms/Navegador';
 import Producto from '../organisms/Producto';
+
+
+
 
 export default function Home({ agregarAlCarrito }) {
   return (
