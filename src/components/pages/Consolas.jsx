@@ -6,6 +6,7 @@ import Nintendo_Switch from '../../assets/Logos/Nintendo_Switch.jpg';
 import Steam_Deck from '../../assets/Logos/Steam_Deck.jpg';
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Footer from "../organisms/Footer";
+import '../Style/Consolas.css';
 
 
 const consolas = [
