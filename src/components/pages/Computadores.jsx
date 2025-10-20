@@ -7,30 +7,35 @@ import Laptop_Gamer from '../../assets/Logos/Laptop_Gamer.webp';
 import PC_Streaming from '../../assets/Logos/PC_Streaming.webp';
 
 const computadores = [
+
   {
     imagen: PC_Gamer_1,
     titulo: "Computador Gamer Basico",
     descripcion: "Un computador ideal para iniciarte en el mundo del gaming, con componentes de calidad y precio accesible.",
     precio: "$599.990"
   },
+
   {
     imagen: PC_Gamer_2,
     titulo: "Computador Gamer Avanzado",
     descripcion: "Un computador potente para juegos AAA, con una tarjeta gráfica de alta gama y un procesador rápido.",
     precio: "$1.299.990"
   },
+
   {
     imagen: Laptop_Gamer,
     titulo: "Laptop Gamer",
     descripcion: "Una laptop diseñada para gamers, con una pantalla de alta frecuencia de actualización y un diseño portátil.",
     precio: "$999.990"
   },
+  
   {
     imagen: PC_Streaming,
     titulo: "Computador para Streaming",
     descripcion: "Un computador optimizado para streaming, con capacidad para manejar múltiples tareas simultáneamente.",
     precio: "$1.499.990"
   }
+
 ];
 
 function agregarAlCarrito(producto) {

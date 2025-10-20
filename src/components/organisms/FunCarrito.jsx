@@ -71,7 +71,6 @@ const precioFinalFormato = precioFinal.toLocaleString('es-CL', { minimumFraction
           )}
           
           <div className="info-producto">
-            {/* MUESTRA LA CANTIDAD */}
             <span>{producto.titulo} (x{producto.cantidad || 1})</span> 
             <span style={{marginLeft: '10px'}}>- {producto.precio} c/u</span> 
           </div>

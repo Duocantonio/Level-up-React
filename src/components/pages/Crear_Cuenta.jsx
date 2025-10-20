@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Alert } from 'react-bootstrap'; 
+import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; 
 
 export default function Crear_Cuenta() {
   const [nombre, setNombre] = useState("");
@@ -10,18 +11,20 @@ export default function Crear_Cuenta() {
   const [errores, setErrores] = useState("");
   const [descuento, setDescuento] = useState("");
 
+  const navigate = useNavigate(); 
+
   const manejarEmail = (email) => {
     setEmail(email);
     if (email.includes("@duocuc.cl")) {
-      setDescuento("Obtienes un 20% de descuento por ser de DuocUC 🎓");
+      setDescuento("🎓 Obtienes un 20% de descuento por ser de DuocUC");
     } else {
       setDescuento("");
     }
   };
 
-  const validarFormulario = (validacion) => {
-    validacion.preventDefault();
-    setErrores(""); 
+  const validarFormulario = (e) => {
+    e.preventDefault();
+    setErrores("");
 
     if (nombre.length < 3) {
       setErrores("Ingrese mínimo 3 letras.");
@@ -40,7 +43,12 @@ export default function Crear_Cuenta() {
       return;
     }
 
-    alert("Felicitaciones, te has registrado con éxito! 🎉");
+    localStorage.setItem(
+      "usuario",
+      JSON.stringify({ nombre, edad, email, clave: clave1 })
+    );
+
+    alert("🎉 Felicitaciones, te has registrado con éxito!");
     navigate("/");
   };
 
@@ -49,7 +57,6 @@ export default function Crear_Cuenta() {
       <h2 className="text-center mb-4">Crear Cuenta</h2>
       
       <Form onSubmit={validarFormulario}>
-        
         {errores && <Alert variant="danger" className="text-center">{errores}</Alert>}
 
         <Form.Group className="mb-3" controlId="formNombre">
@@ -59,14 +66,13 @@ export default function Crear_Cuenta() {
             placeholder="Ingresa tu nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            isInvalid={nombre && nombre.length < 3} 
+            isInvalid={nombre && nombre.length < 3}
           />
           <Form.Control.Feedback type="invalid">
             Mínimo 3 letras.
           </Form.Control.Feedback>
         </Form.Group>
 
-        {/* Campo Edad */}
         <Form.Group className="mb-3" controlId="formEdad">
           <Form.Label>Edad</Form.Label>
           <Form.Control
@@ -81,7 +87,6 @@ export default function Crear_Cuenta() {
           </Form.Control.Feedback>
         </Form.Group>
 
-        {/* Campo Email */}
         <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Correo Electrónico</Form.Label>
           <Form.Control
@@ -92,10 +97,8 @@ export default function Crear_Cuenta() {
           />
         </Form.Group>
 
-        {/* Alert: Muestra el mensaje de descuento si aplica */}
         {descuento && <Alert variant="success">{descuento}</Alert>}
 
-        {/* Campo Contraseña 1 */}
         <Form.Group className="mb-3" controlId="formClave1">
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
@@ -106,7 +109,6 @@ export default function Crear_Cuenta() {
           />
         </Form.Group>
 
-        {/* Campo Contraseña 2 */}
         <Form.Group className="mb-3" controlId="formClave2">
           <Form.Label>Confirmar Contraseña</Form.Label>
           <Form.Control
@@ -121,9 +123,8 @@ export default function Crear_Cuenta() {
           </Form.Control.Feedback>
         </Form.Group>
 
-        {/* Button: Botón de envío con estilos de Bootstrap */}
         <Button variant="primary" type="submit" className="w-100 mt-3">
-          Enviar
+          Crear Cuenta
         </Button>
       </Form>
     </Container>

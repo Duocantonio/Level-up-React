@@ -1,5 +1,3 @@
-// App.jsx
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from './components/pages/Home';
@@ -10,7 +8,8 @@ import Computadores from './components/pages/Computadores'
 import Consolas from './components/pages/Consolas';
 import Juegos_Mesa from './components/pages/Juegos_Mesa';
 import Perifericos from './components/pages/Perifericos';
-
+import Login from './components/pages/Login';
+import EditarDatos from './components/pages/EditarDatos';
 
 
 function App() {
@@ -25,6 +24,8 @@ function App() {
         <Route path='/Consolas' element={<Consolas />} />
         <Route path='/Juegos_Mesa' element={<Juegos_Mesa />} />
         <Route path='/Perifericos' element={<Perifericos />} />
+        <Route path='/Login' element={<Login />} />
+        <Route path='/EditarDatos' element={<EditarDatos />} />
       </Routes>
     </BrowserRouter>
   );

@@ -18,7 +18,6 @@ export default function Producto({ imagen, titulo, descripcion, precio }) {
     if (indiceExistente !== -1) {
       carritoActual[indiceExistente].cantidad = (carritoActual[indiceExistente].cantidad || 1) + 1;
       
-      alert(`${titulo} se ha añadido al carrito. Cantidad total: ${carritoActual[indiceExistente].cantidad} 🛒`);
     } else {
       const productoConCantidad = { 
         ...nuevoProductoBase, 
@@ -26,7 +25,6 @@ export default function Producto({ imagen, titulo, descripcion, precio }) {
       };
       carritoActual.push(productoConCantidad);
       
-      alert(`${titulo} se ha añadido al carrito 🛒`);
     }
 
     localStorage.setItem('carrito', JSON.stringify(carritoActual));
