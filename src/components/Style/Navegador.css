@@ -1,0 +1,152 @@
+/* Estilos adaptados desde style.css (solo lo necesario para #Navegador) */
+
+#Navegador {
+  width: 100%;
+  background: linear-gradient(90deg, #00003f, #ea00ff9a);
+  padding: 8px 20px;
+  box-shadow: 0 2px 10px rgba(0, 255, 255, 0.15);
+  border-bottom: 2px solid rgba(0, 255, 255, 0.12);
+  color: #0ff;
+  font-family: "Orbitron", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#Navegador nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 4px;
+}
+
+/* izquierda (logo) */
+#Navegador .izquierda {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+#Navegador .logo-img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px #0ff);
+  border-radius: 6px;
+}
+
+/* título centrado */
+#Navegador .logo-text {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  text-shadow: 0 0 8px #0ff;
+}
+
+/* derecha (links + puntos) */
+#Navegador .derecha {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+#Navegador .derecha a {
+  color: #0ff;
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background .15s, transform .12s, color .12s;
+}
+#Navegador .derecha a:hover {
+  background: rgba(255,255,255,0.05);
+  color: #0f0;
+  transform: translateY(-1px);
+}
+
+/* nivel/puntos */
+#Navegador .levelup-label {
+  color: #0ff;
+  font-weight: 700;
+  margin-right: 6px;
+  font-size: 0.95rem;
+  text-shadow: 0 0 6px rgba(0,255,255,0.12);
+}
+#Navegador .levelup-points {
+  background: rgba(0,0,0,0.6);
+  color: #0ff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 800;
+  box-shadow: 0 0 8px rgba(0,255,255,0.08);
+  font-size: 0.95rem;
+}
+
+/* sidebar adaptado */
+#Navegador #sidebar ul {
+  display: flex;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  flex-wrap: wrap; /* permite saltos si no caben */
+  list-style: none;
+}
+#Navegador #sidebar h2 {
+  margin: 0 0 8px 0;
+  color: #0ff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0,255,255,0.08);
+}
+#Navegador #sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#Navegador #sidebar li {
+  margin: 0; /* eliminar separación vertical */
+}
+#Navegador #sidebar a {
+  color: #e0e0ff;
+  text-decoration: none;
+  padding: 8px 10px;
+  display: inline-block;
+  border-radius: 6px;
+  white-space: nowrap; /* evita que el texto se parta */
+}
+#Navegador #sidebar a:hover {
+  color: #0f0;
+  background: rgba(0,255,255,0.03);
+  text-shadow: 0 0 6px rgba(0,255,255,0.06);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  #Navegador nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #Navegador .logo-text {
+    font-size: 1.25rem;
+    margin: 6px 0;
+  }
+  #Navegador .logo-img { height: 56px; }
+  #Navegador #sidebar { padding: 10px; }
+}
+
+@media (max-width: 480px) {
+  #Navegador .derecha { justify-content: flex-start; gap: 0.5rem; }
+  #Navegador .logo-text { font-size: 1rem; }
+}
+/* mantener vertical en pantallas pequeñas */
+@media (max-width: 600px) {
+  #Navegador #sidebar ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}

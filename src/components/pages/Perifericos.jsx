@@ -8,6 +8,7 @@ import Webcam__HD from '../../assets/Logos/Webcam_HD.webp';
 import Alfombrilla_Razer_XXL from '../../assets/Logos/Alfombrilla_Razer_XXL.webp';
 import Mando_Xbox_Series_X from '../../assets/Logos/Mando_Xbox_Series_X.png';
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import Footer from "../organisms/Footer";
 
 
 const perifericos = [
@@ -86,6 +87,7 @@ export default function Perifericos() {
           ))}
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

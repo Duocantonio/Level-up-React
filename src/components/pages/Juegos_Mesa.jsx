@@ -6,6 +6,7 @@ import Risk from '../../assets/Logos/Risk.webp';
 import Carcassonne from '../../assets/Logos/Carcassonne.webp';
 import Dixit from '../../assets/Logos/Dixit.jpg';
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import Footer from "../organisms/Footer";
 
 
 const juegosMesa = [
@@ -72,6 +73,7 @@ export default function Juegos_Mesa() {
           ))}
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

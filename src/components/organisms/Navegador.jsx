@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
-
 import Logo from '../../assets/Logos/Logo.png'; 
+import '../Style/Navegador.css';
 
 export default function Navegador() {
     const [puntos, setPuntos] = useState(120);
