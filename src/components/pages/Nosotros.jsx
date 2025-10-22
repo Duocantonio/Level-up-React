@@ -5,8 +5,7 @@ import Navegador from '../organisms/Navegador'; // Asegúrate de que esta ruta s
 
 export default function Nosotros() {
 
-    // ⚠️ ADVERTENCIA: Esta URL no es el método estándar de Google Maps para incrustar.
-    // Podría no funcionar, no mostrar la ubicación de Santiago, o dejar de funcionar en el futuro.
+
     const customMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.010057757669!2d-70.64337939619806!3d-33.47508891619967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c546426fc94f%3A0xf5043080bf84a821!2sTiendas%20LEVEL%20UP!5e0!3m2!1ses-419!2scl!4v1760750595891!5m2!1ses-419!2scl";
 
     return (
@@ -16,7 +15,6 @@ export default function Nosotros() {
             <Container className="my-5"> 
                 <h1 className="text-center mb-5 text-primary">Level-Up Gamer</h1>
                 
-                {/* Sección Quienes Somos */}
                 <Row className="mb-5 justify-content-center">
                     <Col md={10}>
                         <Card className="shadow-sm border-0">
@@ -36,9 +34,7 @@ export default function Nosotros() {
                     </Col>
                 </Row>
                 
-                {/* Sección Misión y Visión usando un diseño de columnas */}
                 <Row className="mb-5 justify-content-center">
-                    
                     <Col md={5} className="mb-4 mb-md-0">
                         <Card className="h-100 border-primary shadow-lg">
                             <Card.Body>
@@ -67,12 +63,10 @@ export default function Nosotros() {
                     
                 </Row>
 
-                {/* Sección del Mapa (con tu iframe URL específica) */}
                 <Row className="justify-content-center">
                     <Col md={10}>
                         <h2 className="text-center mb-4 text-secondary">Ubicación de Nuestra Central de Logística (Referencial)</h2>
                         
-                        {/* Contenedor responsivo para el iframe (mantiene relación de aspecto 4:3) */}
                         <div style={{ position: 'relative', paddingBottom: '75%', height: 0, overflow: 'hidden' }}>
                             <iframe 
                                 src={customMapUrl} 

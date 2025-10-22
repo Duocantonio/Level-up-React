@@ -124,7 +124,7 @@ export default function Crear_Cuenta() {
         </Form.Group>
 
         <Button variant="primary" type="submit" className="w-100 mt-3">
-          Crear Cuenta
+          Registrarse
         </Button>
       </Form>
     </Container>

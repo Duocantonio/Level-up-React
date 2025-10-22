@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import '../Style/Footer.css';
 
-// ...existing code...
 export default function Footer() {
     return (   
         <footer className="bg-dark text-white mt-4 p-4">
@@ -38,4 +37,3 @@ export default function Footer() {
         </footer>
     );
 }
-// ...existing code...

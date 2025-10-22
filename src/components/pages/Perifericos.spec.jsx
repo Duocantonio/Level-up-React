@@ -1,13 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { TextEncoder, TextDecoder } from 'util';
+import Perifericos from './Perifericos';
 
-if (typeof global.TextEncoder === 'undefined') global.TextEncoder = TextEncoder;
-if (typeof global.TextDecoder === 'undefined') global.TextDecoder = TextDecoder;
 
 jest.mock('../organisms/Navegador', () => () => <div data-testid="navegador-mock" />);
-
 jest.mock('../../assets/Logos/Raton_logi.webp', () => 'Raton_logi.webp');
 jest.mock('../../assets/Logos/Teclado_kurama.jpg', () => 'Teclado_kurama.jpg');
 jest.mock('../../assets/Logos/Razer_Kraken.jpeg', () => 'Razer_Kraken.jpeg');
@@ -16,7 +13,6 @@ jest.mock('../../assets/Logos/Webcam_HD.webp', () => 'Webcam_HD.webp');
 jest.mock('../../assets/Logos/Alfombrilla_Razer_XXL.webp', () => 'Alfombrilla_Razer_XXL.webp');
 jest.mock('../../assets/Logos/Mando_Xbox_Series_X.png', () => 'Mando_Xbox_Series_X.png');
 
-import Perifericos from './Perifericos';
 
 describe('Componente Perifericos', () => {
   beforeEach(() => {
@@ -41,7 +37,6 @@ describe('Componente Perifericos', () => {
   });
 
   test('muestra precios y agrega al carrito', () => {
-    const mockAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     render(<Perifericos />);
 
     const boton = screen.getAllByText('Agregar al carrito')[0];
@@ -49,8 +44,5 @@ describe('Componente Perifericos', () => {
 
     expect(localStorage.setItem).toHaveBeenCalled();
     expect(localStorage.getItem).toHaveBeenCalledWith('carrito');
-    expect(mockAlert).toHaveBeenCalled();
-
-    mockAlert.mockRestore();
   });
 });

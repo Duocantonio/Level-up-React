@@ -4,13 +4,30 @@ import Nvidia5090 from '../../assets/Logos/Nvidia5090.png';
 import PS5 from '../../assets/Logos/PS5.png';
 import Navegador from '../organisms/Navegador';
 import Footer from '../organisms/Footer';
+import Catan from '../../assets/Logos/Catan.jpg';
+import Carcassonne from '../../assets/Logos/Carcassonne.webp';
+import Razer_Kraken from '../../assets/Logos/Razer_Kraken.jpeg';
+import Teclado_kurama from '../../assets/Logos/Teclado_kurama.jpg';
+import Pc_Gamer_2 from '../../assets/Logos/Pc_Gamer_2.jpg';
+import Laptop_Gamer from '../../assets/Logos/Laptop_Gamer.webp';
 import { Container, Carousel, Card, Button, Row, Col } from 'react-bootstrap';
 import '../Style/Home.css';
 
 
+export default function Home() {
+
+  const agregarProductoLocal = (producto) => {
+    const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+    const indiceExistente = carritoActual.findIndex(item => item.titulo === producto.titulo);
+    if (indiceExistente !== -1) {
+      carritoActual[indiceExistente].cantidad = (carritoActual[indiceExistente].cantidad || 1) + 1;
+    } else {
+      carritoActual.push({ ...producto, cantidad: 1 });
+    }
+    localStorage.setItem('carrito', JSON.stringify(carritoActual));
+  };
 
 
-export default function Home({ agregarAlCarrito }) {
   const sections = [
     {
       title: 'Consolas',
@@ -48,7 +65,7 @@ export default function Home({ agregarAlCarrito }) {
       <Container className="mt-4 home-page">
         <h1 className="text-center mb-4">Bienvenido a Level-Up Store</h1>
 
-        {/* Carousel que muestra 1 producto a la vez cada 5 segundos */}
+        {/* Carrusel principal */}
         <Carousel className="home-carousel" interval={5000} controls indicators>
           <Carousel.Item>
             <div className="d-flex justify-content-center">
@@ -58,7 +75,18 @@ export default function Home({ agregarAlCarrito }) {
                   <Card.Title>Xbox Series X</Card.Title>
                   <Card.Text>La consola más potente de Xbox hasta la fecha, con un rendimiento excepcional.</Card.Text>
                   <Card.Text className="fw-bold">$499.990</Card.Text>
-                  <Button className="btn-add" variant="primary" onClick={() => agregarAlCarrito({ titulo: 'Xbox Series X', precio: '$499.990', imagen: Xbox_Series_X })}>
+                  <Button
+                    className="btn-add"
+                    variant="primary"
+                    onClick={() =>
+                      agregarProductoLocal({
+                        titulo: 'Xbox Series X',
+                        descripcion: 'La consola más potente de Xbox hasta la fecha, con un rendimiento excepcional.',
+                        precio: '$499.990',
+                        imagen: Xbox_Series_X
+                      })
+                    }
+                  >
                     Agregar al carrito
                   </Button>
                 </Card.Body>
@@ -74,7 +102,18 @@ export default function Home({ agregarAlCarrito }) {
                   <Card.Title>Nvidia RTX 5090</Card.Title>
                   <Card.Text>La tarjeta gráfica más potente de Nvidia, diseñada para gamers y creadores.</Card.Text>
                   <Card.Text className="fw-bold">$1.499.990</Card.Text>
-                  <Button className="btn-add" variant="primary" onClick={() => agregarAlCarrito({ titulo: 'Nvidia RTX 5090', precio: '$1.499.990', imagen: Nvidia5090 })}>
+                  <Button
+                    className="btn-add"
+                    variant="primary"
+                    onClick={() =>
+                      agregarProductoLocal({
+                        titulo: 'Nvidia RTX 5090',
+                        descripcion: 'La tarjeta gráfica más potente de Nvidia, diseñada para gamers y creadores.',
+                        precio: '$1.499.990',
+                        imagen: Nvidia5090
+                      })
+                    }
+                  >
                     Agregar al carrito
                   </Button>
                 </Card.Body>
@@ -90,7 +129,18 @@ export default function Home({ agregarAlCarrito }) {
                   <Card.Title>PlayStation 5</Card.Title>
                   <Card.Text>La consola de última generación de Sony, con un rendimiento impresionante.</Card.Text>
                   <Card.Text className="fw-bold">$499.990</Card.Text>
-                  <Button className="btn-add" variant="primary" onClick={() => agregarAlCarrito({ titulo: 'PlayStation 5', precio: '$499.990', imagen: PS5 })}>
+                  <Button
+                    className="btn-add"
+                    variant="primary"
+                    onClick={() =>
+                      agregarProductoLocal({
+                        titulo: 'PlayStation 5',
+                        descripcion: 'La consola de última generación de Sony, con un rendimiento impresionante.',
+                        precio: '$499.990',
+                        imagen: PS5
+                      })
+                    }
+                  >
                     Agregar al carrito
                   </Button>
                 </Card.Body>
@@ -99,7 +149,7 @@ export default function Home({ agregarAlCarrito }) {
           </Carousel.Item>
         </Carousel>
 
-        {/* Secciones estáticas: 2 productos por sección */}
+        {/* Secciones estáticas */}
         {sections.map((sec, sIdx) => (
           <section key={sIdx} className="mt-5 home-section">
             <h3 className="mb-3">{sec.title}</h3>
@@ -112,7 +162,18 @@ export default function Home({ agregarAlCarrito }) {
                       <Card.Title>{it.titulo}</Card.Title>
                       <Card.Text>{it.descripcion}</Card.Text>
                       <Card.Text className="fw-bold">{it.precio}</Card.Text>
-                      <Button className="btn-add" variant="primary" onClick={() => agregarAlCarrito({ titulo: it.titulo, precio: it.precio, imagen: it.imagen })}>
+                      <Button
+                        className="btn-add"
+                        variant="primary"
+                        onClick={() =>
+                          agregarProductoLocal({
+                            titulo: it.titulo,
+                            descripcion: it.descripcion,
+                            precio: it.precio,
+                            imagen: it.imagen
+                          })
+                        }
+                      >
                         Agregar al carrito
                       </Button>
                     </Card.Body>

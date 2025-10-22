@@ -1,14 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { TextEncoder, TextDecoder } from 'util';
-
-if (typeof global.TextEncoder === 'undefined') {
-  global.TextEncoder = TextEncoder;
-}
-if (typeof global.TextDecoder === 'undefined') {
-  global.TextDecoder = TextDecoder;
-}
+import JuegosDeMesa from './Juegos_Mesa';
 
 jest.mock('../organisms/Navegador', () => () => <div data-testid="navegador-mock" />);
 
@@ -18,7 +11,6 @@ jest.mock('../../assets/Logos/Dixit.jpg', () => 'Dixit.jpg');
 jest.mock('../../assets/Logos/Risk.webp', () => 'Risk.webp');
 jest.mock('../../assets/Logos/Carcassonne.webp', () => 'Carcassonne.webp');
 
-import JuegosDeMesa from './Juegos_Mesa';
 
 describe('Componente Juegos_Mesa', () => {
   beforeEach(() => {
@@ -28,7 +20,7 @@ describe('Componente Juegos_Mesa', () => {
 
   test('renderiza el título "Juegos_Mesa"', () => {
     render(<JuegosDeMesa />);
-    expect(screen.getByText(/Juegos/i)).toBeInTheDocument();
+    expect(screen.getByText('Juegos de Mesa')).toBeInTheDocument();
   });
 
   test('renderiza varios juegos', () => {
@@ -50,7 +42,5 @@ describe('Componente Juegos_Mesa', () => {
     expect(localStorage.setItem).toHaveBeenCalled();
     expect(localStorage.getItem).toHaveBeenCalledWith('carrito');
 
-    expect(mockAlert).toHaveBeenCalled();
-    mockAlert.mockRestore();
   });
 });

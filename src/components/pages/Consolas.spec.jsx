@@ -1,11 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { TextEncoder, TextDecoder } from 'util';
-
-if (typeof global.TextEncoder === 'undefined') {
-    global.TextEncoder = TextEncoder;
-}
+import Consolas from './Consolas';
 
 jest.mock('../organisms/Navegador', () => () => <div data-testid="navegador-mock" />);
 
@@ -14,7 +10,6 @@ jest.mock('../../assets/Logos/PS5.png', () => 'PS5.png');
 jest.mock('../../assets/Logos/Nintendo_Switch.jpg', () => 'Nintendo_Switch.jpg');
 jest.mock('../../assets/Logos/Steam_Deck.jpg', () => 'Steam_Deck.jpg');
 
-import Consolas from './Consolas';
 
 describe('Componente Consolas', () => {
   beforeEach(() => {

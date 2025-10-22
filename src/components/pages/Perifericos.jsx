@@ -56,12 +56,16 @@ const perifericos = [
   }
 ];
 
-function agregarAlCarrito(producto) {
-  const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
-  carritoActual.push(producto);
-  localStorage.setItem('carrito', JSON.stringify(carritoActual));
-  alert(`${producto.titulo} se ha añadido al carrito 🛒`);
-}
+ const agregarProductoLocal = (producto) => {
+    const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+    const indiceExistente = carritoActual.findIndex(item => item.titulo === producto.titulo);
+    if (indiceExistente !== -1) {
+      carritoActual[indiceExistente].cantidad = (carritoActual[indiceExistente].cantidad || 1) + 1;
+    } else {
+      carritoActual.push({ ...producto, cantidad: 1 });
+    }
+    localStorage.setItem('carrito', JSON.stringify(carritoActual));
+};
 
 export default function Perifericos() {
   return (
@@ -78,7 +82,7 @@ export default function Perifericos() {
                   <Card.Title>{p.titulo}</Card.Title>
                   <Card.Text>{p.descripcion}</Card.Text>
                   <Card.Text className="fw-bold">{p.precio}</Card.Text>
-                  <Button variant="info" onClick={() => agregarAlCarrito(p)}>
+                  <Button variant="info" onClick={() => agregarProductoLocal(p)}>
                     Agregar al carrito
                   </Button>
                 </Card.Body>
