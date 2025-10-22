@@ -20,7 +20,7 @@ export default function Login() {
 
     if (usuarioGuardado.email === email && usuarioGuardado.clave === clave) {
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/cambiar");
+      navigate("/");
     } else {
       setMensaje("Correo o contraseña incorrectos.");
     }
@@ -58,6 +58,7 @@ export default function Login() {
 
             <Button type="submit" className="w-100 mt-2" variant="primary">
               Iniciar Sesión
+            <Link></Link>
             </Button>
 
             <div className="text-center mt-3">
