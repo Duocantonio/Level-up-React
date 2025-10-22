@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Alert, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Navegador from'../organisms/Navegador'
+
+
+
 
 export default function Cambiar_Datos() {
+   
   const [nombre, setNombre] = useState("");
   const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
@@ -43,6 +48,8 @@ export default function Cambiar_Datos() {
   };
 
   return (
+  <>
+    <Navegador />  {/* Aquí pones el navegador */}
     <Container className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
       <Card style={{ width: "28rem", padding: "20px" }}>
         <Card.Body>
@@ -98,5 +105,6 @@ export default function Cambiar_Datos() {
         </Card.Body>
       </Card>
     </Container>
-  );
+  </>
+);
 }
