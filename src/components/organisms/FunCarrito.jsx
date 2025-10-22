@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import '../Style/FunCarrito.css';
+
+
 
 export default function FunCarritoSimple() {
   const [productos, setProductos] = useState(() => {
