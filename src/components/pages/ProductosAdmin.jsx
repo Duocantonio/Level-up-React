@@ -8,22 +8,73 @@ const ProductosAdmin = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // form state
+    const [formVisible, setFormVisible] = useState(false);
+    const [nombre, setNombre] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [precio, setPrecio] = useState("");
+    const [categoria, setCategoria] = useState("");
+    const [imagen, setImagen] = useState("");
+
+
+    const fetchProductos = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await ProductService.getAllProductos();
+            setProductos(response.data);
+        } catch (err) {
+            console.error("Error obteniendo productos:", err);
+            setError("No se pudieron cargar los productos.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const cargarProductos = async () => {
-            try {
-                const response = await ProductService.getAll();
-                setProductos(response.data);
-            } catch (err) {
-                console.error("Error obteniendo productos:", err);
-                setError("No se pudieron cargar los productos.");
-            } finally {
-                setLoading(false);
-            }
+        fetchProductos();
+    }, []);
+
+    const handleCreateProducto = async (e) => {
+        e.preventDefault();
+        if (!nombre || !precio) {
+            setError("Nombre y precio son obligatorios.");
+            return;
+        }
+
+        const nuevoProducto = {
+            nombre,
+            descripcion,
+            precio: Number(precio),
+            categoria,
+            imagen
         };
 
-        cargarProductos();
-    }, []);
+        try {
+            await ProductService.createProducto(nuevoProducto);
+            setNombre("");
+            setDescripcion("");
+            setPrecio("");
+            setCategoria("");
+            setImagen("");
+            setFormVisible(false);
+            await fetchProductos();
+        } catch (err) {
+            console.error("Error creando producto:", err);
+            setError("No se pudo crear el producto.");
+        }
+    };
+
+    const handleDeleteProducto = async (id) => {
+        if (!window.confirm("¿Eliminar este producto?")) return;
+        try {
+            await ProductService.deleteProducto(id);
+            await fetchProductos();
+        } catch (err) {
+            console.error("Error eliminando producto:", err);
+            setError("No se pudo eliminar el producto.");
+        }
+    };
 
     if (loading) {
         return (
@@ -54,6 +105,41 @@ const ProductosAdmin = () => {
             <Navegador />
             <div style={{ padding: "20px" }}>
                 <h1>Gestión de Productos</h1>
+
+                <div style={{ marginBottom: "20px" }}>
+                    <button onClick={() => setFormVisible(!formVisible)}>
+                        {formVisible ? "Cancelar" : "Agregar Producto"}
+                    </button>
+                </div>
+
+                {formVisible && (
+                    <form onSubmit={handleCreateProducto} style={{ marginBottom: "20px" }}>
+                        <div>
+                            <label>Nombre:</label><br />
+                            <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                        </div>
+                        <div>
+                            <label>Descripción:</label><br />
+                            <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+                        </div>
+                        <div>
+                            <label>Precio:</label><br />
+                            <input type="number" value={precio} onChange={(e) => setPrecio(e.target.value)} />
+                        </div>
+                        <div>
+                            <label>Categoría:</label><br />
+                            <input value={categoria} onChange={(e) => setCategoria(e.target.value)} />
+                        </div>
+                        <div>
+                            <label>URL imagen:</label><br />
+                            <input value={imagen} onChange={(e) => setImagen(e.target.value)} />
+                        </div>
+                        <div style={{ marginTop: "10px" }}>
+                            <button type="submit">Crear</button>
+                        </div>
+                    </form>
+                )}
+
                 <div
                     style={{
                         display: "grid",
@@ -74,7 +160,7 @@ const ProductosAdmin = () => {
                             }}
                         >
                             <img
-                                src={p.imagen || "https://via.placeholder.com/200"} // Fallback si no hay imagen
+                                src={p.imagen || "https://via.placeholder.com/200"}
                                 alt={p.nombre}
                                 style={{ width: "100%", height: "200px", objectFit: "contain" }}
                             />
@@ -85,6 +171,12 @@ const ProductosAdmin = () => {
                             </div>
                             <div style={{ marginTop: "10px", fontWeight: "bold", fontSize: "1.2rem" }}>
                                 ${p.precio}
+                            </div>
+
+                            <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+                                <button onClick={() => handleDeleteProducto(p.id)} style={{ background: "#e74c3c", color: "white", border: "none", padding: "8px 12px", borderRadius: "6px" }}>
+                                    Eliminar
+                                </button>
                             </div>
                         </div>
                     ))}

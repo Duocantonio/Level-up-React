@@ -74,5 +74,5 @@ export function getRoles() {
 
 export function isAdmin() {
     const roles = getRoles();
-    return Array.isArray(roles) && roles.includes('ROLE_ADMIN');
+    return Array.isArray(roles) && roles.includes('ADMIN');
 }

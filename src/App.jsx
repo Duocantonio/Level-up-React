@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext'; // Importa tu AuthProvider
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 import Home from './components/pages/Home';
 import Crear_Cuenta from './components/pages/Crear_Cuenta';
@@ -30,6 +30,7 @@ function App() {
           <Route path='/Login' element={<Login />} />
           <Route path='/EditarDatos' element={<EditarDatos />} />
 
+          {}
           <Route
             path="/admin/productos"
             element={
@@ -38,8 +39,9 @@ function App() {
               </AdminRoute>
             }
           />
+          <Route path="/ProductosAdmin" element={<Navigate to="/admin/productos" replace />} />
 
-                    <Route path="/no-autorizado" element={<h2>No tienes permisos para entrar aquí</h2>} />
+          <Route path="/no-autorizado" element={<h2>No tienes permisos para entrar aquí</h2>} />
 
         </Routes>
       </BrowserRouter>
