@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navegador from "../organisms/Navegador";
 import Xbox_Series_X from '../../assets/Logos/Xbox_Series_X.png';
 import PS5 from '../../assets/Logos/PS5.png';
@@ -7,9 +7,10 @@ import Steam_Deck from '../../assets/Logos/Steam_Deck.jpg';
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Footer from "../organisms/Footer";
 import '../Style/Consolas.css';
+import ProductoService from "../../services/ProductoService";
 
 
-const consolas = [
+const consolasLocal = [
   {
     imagen: Xbox_Series_X,
     titulo: "Xbox Series X",
@@ -36,25 +37,53 @@ const consolas = [
   }
 ];
 
- const agregarProductoLocal = (producto) => {
+
+export default function Consolas() {
+
+  const [productos, setProductos] = useState([]);
+
+  const mergeproductos = (productosAPI, productosLocal = []) => {
+    const titulosLocal = productosLocal.map(p => p.titulo);
+    return [
+      ...productosLocal,
+      ...productosAPI.filter(p => !titulosLocal.includes(p.titulo))
+    ];
+  };
+
+  useEffect(() => {
+    ProductoService.getAllProductosByCategoria("consolas")
+      .then((response) => {
+        if (response && response.data) {
+          setProductos(prev => mergeproductos(response.data, prev));
+        } else {
+          setProductos(prev => mergeproductos([], prev));
+        }
+      });
+  }, []);
+
+  const agregarProductoLocal = (producto) => {
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
     const indiceExistente = carritoActual.findIndex(item => item.titulo === producto.titulo);
+
     if (indiceExistente !== -1) {
       carritoActual[indiceExistente].cantidad = (carritoActual[indiceExistente].cantidad || 1) + 1;
     } else {
       carritoActual.push({ ...producto, cantidad: 1 });
     }
+
     localStorage.setItem('carrito', JSON.stringify(carritoActual));
   };
 
-export default function Consolas() {
   return (
     <>
       <Navegador />
       <Container className="mt-4">
         <h1 className="mb-4 text-center">Consolas</h1>
+
         <Row>
-          {consolas.map((c, idx) => (
+
+          {/* Consolas locales */}
+          {consolasLocal.map((c, idx) => (
             <Col key={idx} md={6} lg={3} className="mb-4">
               <Card>
                 <Card.Img variant="top" src={c.imagen} style={{ height: "200px", objectFit: "cover" }} />
@@ -69,6 +98,24 @@ export default function Consolas() {
               </Card>
             </Col>
           ))}
+
+          {/* Productos desde la API */}
+          {productos.map((c, idx) => (
+            <Col key={idx} md={6} lg={3} className="mb-4">
+              <Card>
+                <Card.Img variant="top" src={c.imagen} style={{ height: "200px", objectFit: "cover" }} />
+                <Card.Body>
+                  <Card.Title>{c.nombre}</Card.Title>
+                  <Card.Text>{c.descripcion}</Card.Text>
+                  <Card.Text className="fw-bold">{c.precio}</Card.Text>
+                  <Button variant="primary" onClick={() => agregarProductoLocal(c)}>
+                    Agregar al carrito
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+
         </Row>
       </Container>
       <Footer />

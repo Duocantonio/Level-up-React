@@ -38,9 +38,15 @@ export default function FunCarritoSimple() {
     }
   };
 
-  const precioTotal = productos.reduce((total, producto) => {
-    const precioLimpio = producto.precio.replace('$', '').replace(/\./g, ''); 
-    const precioNumerico = Number(precioLimpio) || 0;
+  const precioTotal = productos.reduce((total, producto) => {
+   const precioTexto = String(producto.precio); 
+
+const precioNumerico = Number(
+  precioTexto
+    .replace('$', '')
+    .replace(/\./g, '')
+    .replace(/,/g, '') 
+) || 0;
     
     const subtotal = precioNumerico * (producto.cantidad || 1); 
     

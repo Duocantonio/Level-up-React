@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Container, Alert, Card } from "react-bootstrap";
-import Crear_Cuenta from "./Crear_Cuenta";
+import { useAuth } from "../../context/AuthContext"; // Tu contexto
+import { login as loginService } from "../../services/AuthService"; 
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [clave, setClave] = useState("");
   const [mensaje, setMensaje] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const manejarLogin = (e) => {
+  const manejarLogin = async (e) => {
     e.preventDefault();
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+    try {
+      const data = await loginService(email, clave);
 
-    if (!usuarioGuardado) {
-      setMensaje("No hay ninguna cuenta registrada. Por favor crea una.");
-      return;
-    }
+      login(data.usuario.email, data.roles);
 
-    if (usuarioGuardado.email === email && usuarioGuardado.clave === clave) {
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/");
-    } else {
-      setMensaje("Correo o contraseña incorrectos.");
+      if (data.roles.includes("ADMIN")) {
+        navigate("/ProductosAdmin");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      setMensaje(err.response?.data?.message || "Correo o contraseña incorrectos.");
     }
   };
-
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
       <Card style={{ width: "24rem", padding: "20px" }}>

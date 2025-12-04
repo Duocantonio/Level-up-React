@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Form, Button, Container, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState } from "react";
+import { Form, Button, Container, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/AxiosConfig";
 
 export default function Crear_Cuenta() {
   const [nombre, setNombre] = useState("");
@@ -11,7 +12,7 @@ export default function Crear_Cuenta() {
   const [errores, setErrores] = useState("");
   const [descuento, setDescuento] = useState("");
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const manejarEmail = (email) => {
     setEmail(email);
@@ -22,7 +23,7 @@ export default function Crear_Cuenta() {
     }
   };
 
-  const validarFormulario = (e) => {
+  const validarFormulario = async (e) => {
     e.preventDefault();
     setErrores("");
 
@@ -35,23 +36,30 @@ export default function Crear_Cuenta() {
       return;
     }
     if (!email.includes("@gmail.com") && !email.includes("@duocuc.cl")) {
-      setErrores("Añade un correo válido (@gmail.com o @duocuc.cl).");
+      setErrores("Añade un correo válido.");
       return;
     }
-    if (clave1 !== clave2 || clave2 === "") {
+    if (clave1 !== clave2) {
       setErrores("Las claves no coinciden.");
       return;
     }
 
-    localStorage.setItem(
-      "usuario",
-      JSON.stringify({ nombre, edad, email, clave: clave1 })
-    );
+    try {
+      const response = await api.post("/auth/register", {
+        nombre,
+        edad,
+        email,
+        clave1,
+        rol: "USER",
+      });
 
-    alert("🎉 Felicitaciones, te has registrado con éxito!");
-    navigate("/");
+      alert("🎉 Usuario registrado correctamente");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setErrores(error.response?.data?.error || "Error al registrar usuario");
+    }
   };
-
   return (
     <Container className="my-5 p-4 border rounded shadow" style={{ maxWidth: '450px' }}>
       <h2 className="text-center mb-4">Crear Cuenta</h2>

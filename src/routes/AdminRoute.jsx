@@ -1,0 +1,10 @@
+import { Navigate } from "react-router-dom";
+
+export const AdminRoute = ({ children }) => {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario || usuario.rol !== "ADMIN") {
+        return <Navigate to="/no-autorizado" replace />;
+    }
+    return children;
+};

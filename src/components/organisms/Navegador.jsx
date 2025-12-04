@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import Logo from '../../assets/Logos/Logo.png'; 
+import { Link } from 'react-router-dom';
 import '../Style/Navegador.css';
 
 export default function Navegador() {
@@ -23,6 +24,7 @@ export default function Navegador() {
                     <HashLink to="/Crear_Cuenta" smooth>Crear Cuenta</HashLink>
                     <HashLink to="/Login" smooth>Login</HashLink>
                     <HashLink to="/EditarDatos" smooth>EditarDatos</HashLink>
+                    <Link to="/admin/productos" className="admin-link">Admin</Link>
                     <p>
                         <span className="levelup-label">Tus puntos son de </span>
                         <span id="puntos" className="levelup-points">{puntos} Level-Up</span>
