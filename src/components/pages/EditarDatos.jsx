@@ -42,10 +42,14 @@ export default function Cambiar_Datos() {
     setMensaje("Datos actualizados correctamente ✅");
   };
 
-  const cerrarSesion = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/");
-  };
+const cerrarSesion = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("usuario");
+  localStorage.removeItem("roles");
+  localStorage.removeItem("isLoggedIn");
+
+  navigate("/login");
+};
 
   return (
   <>

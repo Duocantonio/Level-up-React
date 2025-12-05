@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Container, Alert, Card } from "react-bootstrap";
-import { useAuth } from "../../context/AuthContext"; // Tu contexto
-import { login as loginService } from "../../services/AuthService"; 
+import { useAuth } from "../../context/AuthContext";
+import { login as loginService } from "../../services/AuthService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,8 +13,14 @@ export default function Login() {
 
   const manejarLogin = async (e) => {
     e.preventDefault();
+    setMensaje("");
+
     try {
       const data = await loginService(email, clave);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      localStorage.setItem("roles", JSON.stringify(data.roles));
+      localStorage.setItem("isLoggedIn", "true");
 
       login(data.usuario.email, data.roles);
 
@@ -23,6 +29,7 @@ export default function Login() {
       } else {
         navigate("/");
       }
+
     } catch (err) {
       setMensaje(err.response?.data?.message || "Correo o contraseña incorrectos.");
     }

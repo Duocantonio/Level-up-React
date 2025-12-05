@@ -12,7 +12,7 @@ class ProductoService {
     }
 
     createProducto(producto) {
-        return api.post('/productos/createproduc', producto);
+        return api.post('/productos/createproducto', producto);
     }
 
     updateProducto(id, producto) {
