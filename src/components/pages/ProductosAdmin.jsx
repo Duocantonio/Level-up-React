@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import Footer from "../organisms/Footer";
 import ProductService from "../../services/ProductoService";
 import Navegador from "../organisms/Navegador";
+import "../Style/ProductoAdmin.css"; // IMPORTANTE
 
 const ProductosAdmin = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // form state
+    // Estado formulario
     const [formVisible, setFormVisible] = useState(false);
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [precio, setPrecio] = useState("");
     const [categoria, setCategoria] = useState("");
     const [imagen, setImagen] = useState("");
-
 
     const fetchProductos = async () => {
         setLoading(true);
@@ -103,85 +103,104 @@ const ProductosAdmin = () => {
     return (
         <>
             <Navegador />
-            <div style={{ padding: "20px" }}>
+
+            <div className="productos-admin">
                 <h1>Gestión de Productos</h1>
 
-                <div style={{ marginBottom: "20px" }}>
-                    <button onClick={() => setFormVisible(!formVisible)}>
+                <div className="actions">
+                    <button
+                        className="btn-primary"
+                        onClick={() => setFormVisible(!formVisible)}
+                    >
                         {formVisible ? "Cancelar" : "Agregar Producto"}
                     </button>
                 </div>
 
                 {formVisible && (
-                    <form onSubmit={handleCreateProducto} style={{ marginBottom: "20px" }}>
-                        <div>
-                            <label>Nombre:</label><br />
-                            <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                    <form className="form-card" onSubmit={handleCreateProducto}>
+                        <div className="form-group">
+                            <label className="form-label">Nombre:</label>
+                            <input
+                                className="input"
+                                value={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                            />
                         </div>
-                        <div>
-                            <label>Descripción:</label><br />
-                            <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+
+                        <div className="form-group">
+                            <label className="form-label">Descripción:</label>
+                            <textarea
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                            />
                         </div>
-                        <div>
-                            <label>Precio:</label><br />
-                            <input type="number" value={precio} onChange={(e) => setPrecio(e.target.value)} />
+
+                        <div className="form-group">
+                            <label className="form-label">Precio:</label>
+                            <input
+                                className="input"
+                                type="number"
+                                value={precio}
+                                onChange={(e) => setPrecio(e.target.value)}
+                            />
                         </div>
-                        <div>
-                            <label>Categoría:</label><br />
-                            <input value={categoria} onChange={(e) => setCategoria(e.target.value)} />
+
+                        <div className="form-group">
+                            <label className="form-label">Categoría:</label>
+                            <input
+                                className="input"
+                                value={categoria}
+                                onChange={(e) => setCategoria(e.target.value)}
+                            />
                         </div>
-                        <div>
-                            <label>URL imagen:</label><br />
-                            <input value={imagen} onChange={(e) => setImagen(e.target.value)} />
+
+                        <div className="form-group">
+                            <label className="form-label">URL Imagen:</label>
+                            <input
+                                className="input"
+                                value={imagen}
+                                onChange={(e) => setImagen(e.target.value)}
+                            />
                         </div>
-                        <div style={{ marginTop: "10px" }}>
-                            <button type="submit">Crear</button>
+
+                        <div className="form-actions">
+                            <button className="btn-primary" type="submit">
+                                Crear Producto
+                            </button>
                         </div>
                     </form>
                 )}
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                        gap: "20px",
-                    }}
-                >
+                <div className="grid-products">
                     {productos.map((p) => (
-                        <div
-                            key={p.id}
-                            style={{
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                borderRadius: "10px",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between"
-                            }}
-                        >
+                        <div className="product-card" key={p.id}>
                             <img
                                 src={p.imagen || "https://via.placeholder.com/200"}
                                 alt={p.nombre}
-                                style={{ width: "100%", height: "200px", objectFit: "contain" }}
+                                className="product-img"
                             />
-                            <div>
-                                <h3 style={{ margin: "10px 0" }}>{p.nombre}</h3>
-                                <p style={{ color: "#555", fontSize: "0.9rem" }}>{p.descripcion}</p>
-                                <p><strong>Categoría:</strong> {p.categoria}</p>
-                            </div>
-                            <div style={{ marginTop: "10px", fontWeight: "bold", fontSize: "1.2rem" }}>
-                                ${p.precio}
-                            </div>
 
-                            <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-                                <button onClick={() => handleDeleteProducto(p.id)} style={{ background: "#e74c3c", color: "white", border: "none", padding: "8px 12px", borderRadius: "6px" }}>
-                                    Eliminar
-                                </button>
-                            </div>
+                            <h3 className="product-title">{p.nombre}</h3>
+
+                            <p className="product-desc">{p.descripcion}</p>
+
+                            <p className="product-meta">
+                                <strong>Categoría:</strong> {p.categoria}
+                            </p>
+
+                            <p className="product-price">${p.precio}</p>
+
+                            <button
+                                className="btn-delete"
+                                onClick={() => handleDeleteProducto(p.id)}
+                            >
+                                Eliminar
+                            </button>
                         </div>
                     ))}
                 </div>
             </div>
+
             <Footer />
         </>
     );
